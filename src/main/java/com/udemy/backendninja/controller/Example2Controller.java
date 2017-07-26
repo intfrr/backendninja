@@ -26,7 +26,7 @@ public class Example2Controller {
     //localhost:8080/example2/request2/JON
     //localhost:8080/example2/request2/MIKEL
     @GetMapping("/request2/{nm}")
-    public ModelAndView request2(@PathVariable(value = "nm") String name){
+    public ModelAndView request2(@PathVariable(name = "nm") String name){
         ModelAndView modelAndView = new ModelAndView(EXAMPLE2_VIEW);
         modelAndView.addObject("nm_in_model", name);
         return modelAndView;
