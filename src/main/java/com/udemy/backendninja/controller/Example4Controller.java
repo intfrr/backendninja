@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Example4Controller {
 
     public static final String ERROR404 = "404";
-    public static final String ERROR500 = "500";
+    public static final String ERROR500 = "error/500";
 
     @GetMapping("/404")
     public String error404(){
