@@ -7,10 +7,12 @@
 <body>
     <form action="#" th:action="@{/example3/addperson}" th:object="${person}" method="post">
         <label for="name">Name:</label>
-        <input id="name" th:field="*{name}"></input>
+        <input id="name" th:field="*{name}"/>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name has errors</p>
         <label for="age">Age:</label>
-        <input type="number" id="age" th:field="*{age}"></input>
-        <input type="submit" value="Submit"></input>
+        <input type="number" id="age" th:field="*{age}"/>
+        <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age has errors</p>
+        <input type="submit" value="Submit"/>
     </form>
 </body>
 </html>
