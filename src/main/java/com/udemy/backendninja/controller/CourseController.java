@@ -1,15 +1,15 @@
 package com.udemy.backendninja.controller;
 
+import com.udemy.backendninja.converter.CourseConverter;
 import com.udemy.backendninja.entity.Course;
+import com.udemy.backendninja.model.CourseModel;
 import com.udemy.backendninja.service.impl.CourseServiceImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -21,7 +21,11 @@ public class CourseController {
 
     @Autowired
     @Qualifier("courseServiceImpl")
-    CourseServiceImpl courseService;
+    private CourseServiceImpl courseService;
+
+    @Autowired
+    @Qualifier("courseConverter")
+    private CourseConverter courseConverter;
 
     @RequestMapping("/listcourse")
     public ModelAndView listAllCourses(){
@@ -33,9 +37,22 @@ public class CourseController {
     }
 
     @PostMapping("/addcourse")
-    public String addCourse(@ModelAttribute("course") Course course){
-        LOG.info("Call: listAllCourses() " + " -- Param: " + course.toString());
-        courseService.addCourse(course);
+    public String addCourse(@ModelAttribute("course") CourseModel courseModel){
+        LOG.info("Call: listAllCourses() " + " -- Param: " + courseModel.toString());
+        courseService.addCourse(courseConverter.model2Entity(courseModel));
+        return "redirect:/courses/listcourse";
+    }
+
+    @PutMapping("/updatecourse")
+    public String updateCourse(@ModelAttribute("course") CourseModel courseModel){
+        LOG.info("Updating the Model " + courseModel.toString());
+        courseService.updateCourse(courseConverter.model2Entity(courseModel));
+        return "redirect:/courses/listcourse";
+    }
+
+    @DeleteMapping("/deletecourse")
+    public String deleteCourse(@ModelAttribute("course") CourseModel courseModel){
+        courseService.removeCourse(courseConverter.model2Entity(courseModel).getId());
         return "redirect:/courses/listcourse";
     }
 
