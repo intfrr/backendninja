@@ -27,6 +27,7 @@ public class CourseController {
     public ModelAndView listAllCourses(){
         LOG.info("Call: listAllCourses()");
         ModelAndView modelAndView = new ModelAndView(COURSES_VIEW);
+        modelAndView.addObject("course", new Course());
         modelAndView.addObject("courses", courseService.listAllCourses());
         return modelAndView;
     }
@@ -35,7 +36,7 @@ public class CourseController {
     public String addCourse(@ModelAttribute("course") Course course){
         LOG.info("Call: listAllCourses() " + " -- Param: " + course.toString());
         courseService.addCourse(course);
-        return "redirect:/courses/listCourses";
+        return "redirect:/courses/listcourse";
     }
 
 }

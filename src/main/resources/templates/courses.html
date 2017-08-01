@@ -23,5 +23,16 @@
             </tr>
         </tbody>
     </table>
+    <form action="#" th:action="@{/courses/addcourse}" th:object="${course}" method="post">
+        <label>Name: </label>
+        <input th:field="*{name}"/>
+        <label>Description: </label>
+        <input th:field="*{description}"/>
+        <label>Price: </label>
+        <input type="number" th:field="*{price}"/>
+        <label>Hours: </label>
+        <input type="number" th:field="*{hours}"/>
+        <input type="submit" value="Submit!"/>
+    </form>
 </body>
 </html>
