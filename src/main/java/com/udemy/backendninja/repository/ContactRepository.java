@@ -9,6 +9,4 @@ import java.io.Serializable;
 @Repository("contactRepository")
 public interface ContactRepository extends JpaRepository<Contact, Serializable>{
 
-
-
 }

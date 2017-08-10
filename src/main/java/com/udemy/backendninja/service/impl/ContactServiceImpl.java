@@ -37,4 +37,18 @@ public class ContactServiceImpl implements ContactService {
         }
         return contactsList;
     }
+
+    @Override
+    public ContactModel findById(int id) {
+        return contactConverter.convertContact2ContactModel(contactRepository.findOne(id));
+    }
+
+    @Override
+    public void removeContact(int id) {
+        ContactModel contact = findById(id);
+        if (contact != null){
+            contactRepository.delete(contactConverter.convertContactModel2Contact(contact));
+        }
+
+    }
 }

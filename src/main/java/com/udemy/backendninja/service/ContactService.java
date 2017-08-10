@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface ContactService {
 
-    public abstract ContactModel addContact(ContactModel contactModel);
+    ContactModel addContact(ContactModel contactModel);
 
-    public abstract List<ContactModel> listAllContacts();
+    List<ContactModel> listAllContacts();
+
+    ContactModel findById(int id);
+
+    void removeContact(int id);
 
 }
