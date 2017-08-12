@@ -1,7 +1,9 @@
 package com.udemy.backendninja.controller;
 
 import com.udemy.backendninja.constant.ViewConstant;
+import com.udemy.backendninja.entity.Contact;
 import com.udemy.backendninja.model.ContactModel;
+import com.udemy.backendninja.repository.ContactRepository;
 import com.udemy.backendninja.service.ContactService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,9 +24,20 @@ public class ContactController {
     @Qualifier("contactServiceImpl")
     ContactService contactService;
 
+    @Autowired
+    @Qualifier("contactRepository")
+    ContactRepository contactRepository;
+
     @GetMapping("/contactform")
-    public String redirectContactForm(Model model){
-        model.addAttribute("contactModel", new ContactModel());
+    public String redirectContactForm(
+            @RequestParam(name = "id", required = false) int id,
+            Model model){
+        Contact contact = contactRepository.findOne(id);
+        if (contact != null){
+            model.addAttribute("contactModel", contact);
+        }else{
+            model.addAttribute("contactModel", new ContactModel());
+        }
         return "redirect:/contacts/showcontacts";
     }
 
